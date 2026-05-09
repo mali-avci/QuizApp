@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Sonuc</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container">
+    <h1>Sonuc</h1>
+    <p>
+        Quiz: <strong th:text="${attempt.quiz.title}"></strong> -
+        Skor: <strong th:text="${attempt.score}"></strong>/<span th:text="${attempt.total}"></span>
+    </p>
+
+    <div class="chart">
+        <div class="chart__row">
+            <span>Dogru</span>
+            <div class="bar bar--good" th:style="'width:' + ${correctPercent} + '%'">
+                <span th:text="${correctCount}"></span>
+            </div>
+        </div>
+        <div class="chart__row">
+            <span>Yanlis</span>
+            <div class="bar bar--bad" th:style="'width:' + ${wrongPercent} + '%'">
+                <span th:text="${wrongCount}"></span>
+            </div>
+        </div>
+    </div>
+
+    <h2>Detayli Sonuclar</h2>
+    <table class="table result-table">
+        <thead>
+            <tr>
+                <th>Soru</th>
+                <th>Senin Cevabin</th>
+                <th>Dogru Cevap</th>
+                <th>Durum</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="review : ${reviews}">
+                <td th:text="${review.questionText}"></td>
+                <td th:text="${review.selectedText}"></td>
+                <td th:text="${review.correctText}"></td>
+                <td>
+                    <span class="badge" th:classappend="${review.correct} ? 'badge--good' : 'badge--bad'"
+                          th:text="${review.correct} ? 'Dogru' : 'Yanlis'"></span>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a class="btn" th:href="@{/quizzes}">Diger Quizler</a>
+</main>
+</body>
+</html>

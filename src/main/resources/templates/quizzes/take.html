@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Quiz</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container">
+    <div class="quiz-header">
+        <h1 th:text="${quiz.title}"></h1>
+        <div class="timer" th:attr="data-duration=${quiz.durationSeconds}">
+            Kalan Sure: <span id="timerValue"></span>
+        </div>
+    </div>
+
+    <form th:action="@{/quizzes/{id}/submit(id=${quiz.id})}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <div class="question" th:each="question : ${quiz.questions}">
+            <h3 th:text="${question.text}"></h3>
+            <div class="choices">
+                <label th:each="choice : ${question.choices}">
+                    <input type="radio" th:name="${'q_' + question.id}" th:value="${choice.id}" required />
+                    <span th:text="${choice.text}"></span>
+                </label>
+            </div>
+        </div>
+        <button class="btn" type="submit">Bitir</button>
+    </form>
+</main>
+
+<script>
+const timerEl = document.getElementById('timerValue');
+const timerBox = document.querySelector('.timer');
+const durationSeconds = parseInt(timerBox.dataset.duration, 10);
+let remaining = Number.isFinite(durationSeconds) ? durationSeconds : 0;
+const tick = () => {
+  const minutes = Math.floor(remaining / 60);
+  const seconds = remaining % 60;
+  timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+  if (remaining <= 0) {
+    document.querySelector('form').submit();
+    return;
+  }
+  remaining -= 1;
+};
+tick();
+setInterval(tick, 1000);
+</script>
+</body>
+</html>

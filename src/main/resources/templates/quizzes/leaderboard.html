@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Liderlik</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container">
+    <h1>Liderlik Tablosu</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Kullanici</th>
+                <th>Quiz</th>
+                <th>Skor</th>
+                <th>Tarih</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="attempt : ${attempts}">
+                <td th:text="${attempt.user.username}"></td>
+                <td th:text="${attempt.quiz.title}"></td>
+                <td>
+                    <span th:text="${attempt.score}"></span>/<span th:text="${attempt.total}"></span>
+                </td>
+                <td th:text="${attempt.finishedAt}"></td>
+            </tr>
+        </tbody>
+    </table>
+</main>
+</body>
+</html>

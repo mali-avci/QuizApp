@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<body>
+<nav class="nav" th:fragment="navbar">
+    <div class="nav__brand">QuizApp</div>
+    <div class="nav__links">
+        <a th:href="@{/quizzes}">Quizler</a>
+        <a th:href="@{/history}">Gecmis</a>
+        <a th:href="@{/leaderboard}">Liderlik</a>
+        <a th:href="@{/admin/quizzes}" sec:authorize="hasRole('ADMIN')">Admin</a>
+    </div>
+    <div class="nav__auth">
+        <span sec:authentication="name"></span>
+        <form th:action="@{/logout}" method="post">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="submit">Cikis</button>
+        </form>
+    </div>
+</nav>
+</body>
+</html>

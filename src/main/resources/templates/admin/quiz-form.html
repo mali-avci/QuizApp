@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Admin - Quiz Form</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div th:replace="fragments/navbar :: navbar"></div>
+<main class="container">
+    <h1>Quiz Form</h1>
+    <form th:action="${quiz.id} != null ? @{'/admin/quizzes/' + ${quiz.id}} : @{/admin/quizzes}" method="post" th:object="${quiz}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <label>Baslik</label>
+        <input type="text" th:field="*{title}" required />
+        <label>Kategori</label>
+        <input type="text" th:field="*{category}" required />
+        <label>Sure (sn)</label>
+        <input type="number" th:field="*{durationSeconds}" min="30" required />
+        <button class="btn" type="submit">Kaydet</button>
+    </form>
+</main>
+</body>
+</html>

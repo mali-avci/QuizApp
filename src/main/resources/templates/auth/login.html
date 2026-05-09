@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Giris</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+</head>
+<body>
+<div class="auth">
+    <h1>Giris Yap</h1>
+    <p th:if="${param.error}" class="error">Hatali kullanici adi veya sifre.</p>
+    <p th:if="${param.registered}" class="success">Kayit basarili. Giris yapabilirsiniz.</p>
+    <form method="post" th:action="@{/login}">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <label>Kullanici Adi</label>
+        <input type="text" name="username" required />
+        <label>Sifre</label>
+        <input type="password" name="password" required />
+        <button type="submit">Giris</button>
+    </form>
+    <p>Hesabin yok mu? <a th:href="@{/register}">Kayit Ol</a></p>
+</div>
+</body>
+</html>
