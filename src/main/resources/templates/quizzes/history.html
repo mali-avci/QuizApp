@@ -2,33 +2,36 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Gecmis</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Gecmis - QuizApp</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <main class="container">
     <h1>Gecmis Sonuclar</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Quiz</th>
-                <th>Skor</th>
-                <th>Tarih</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="attempt : ${attempts}">
-                <td>
-                    <a th:href="@{/attempts/{id}(id=${attempt.id})}" th:text="${attempt.quiz.title}"></a>
-                </td>
-                <td>
-                    <span th:text="${attempt.score}"></span>/<span th:text="${attempt.total}"></span>
-                </td>
-                <td th:text="${attempt.finishedAt}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Quiz</th>
+                    <th>Skor</th>
+                    <th>Tarih</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="attempt : ${attempts}">
+                    <td>
+                        <a th:href="@{/attempts/{id}(id=${attempt.id})}" th:text="${attempt.quiz.title}"></a>
+                    </td>
+                    <td>
+                        <span th:text="${attempt.score}"></span>/<span th:text="${attempt.total}"></span>
+                    </td>
+                    <td th:text="${attempt.finishedAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 </body>
 </html>

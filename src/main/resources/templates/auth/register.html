@@ -2,22 +2,34 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Kayit</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Kayit - QuizApp</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
-<div class="auth">
-    <h1>Kayit Ol</h1>
-    <p th:if="${error}" class="error" th:text="${error}"></p>
-    <form method="post" th:action="@{/register}" th:object="${form}">
-        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <label>Kullanici Adi</label>
-        <input type="text" th:field="*{username}" required />
-        <label>Sifre</label>
-        <input type="password" th:field="*{password}" required />
-        <button type="submit">Kayit</button>
-    </form>
-    <p>Hesabin var mi? <a th:href="@{/login}">Giris Yap</a></p>
+<div class="auth-page">
+    <div class="auth">
+        <div class="auth-logo">QuizApp</div>
+        <h1>Hesap Olustur</h1>
+        <span class="subtitle">Ucretsiz kayit ol, hemen basla.</span>
+
+        <p th:if="${error}" class="error" th:text="${error}"></p>
+
+        <form method="post" th:action="@{/register}" th:object="${form}">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <div class="form-group">
+                <label for="username">Kullanici Adi</label>
+                <input type="text" id="username" th:field="*{username}" required placeholder="kullanici_adin" />
+            </div>
+            <div class="form-group">
+                <label for="password">Sifre</label>
+                <input type="password" id="password" th:field="*{password}" required placeholder="••••••••" />
+            </div>
+            <button type="submit" class="btn" style="width:100%;justify-content:center;">Kayit Ol</button>
+        </form>
+
+        <p class="auth-footer">Hesabin var mi? <a th:href="@{/login}">Giris Yap</a></p>
+    </div>
 </div>
 </body>
 </html>

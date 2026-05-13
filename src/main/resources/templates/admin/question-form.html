@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin - Soru Form</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
@@ -9,25 +10,37 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <main class="container">
     <h1>Soru Form</h1>
-    <form th:action="${questionId} != null ? @{'/admin/questions/' + ${questionId}} : @{'/admin/quizzes/' + ${quiz.id} + '/questions'}" method="post" th:object="${form}">
+    <form th:action="${questionId} != null ? @{'/admin/questions/' + ${questionId}} : @{'/admin/quizzes/' + ${quiz.id} + '/questions'}" method="post" th:object="${form}" style="max-width:560px;">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
-        <label>Soru Metni</label>
-        <textarea th:field="*{text}" rows="3" required></textarea>
-        <label>Secenek A</label>
-        <input type="text" th:field="*{choiceA}" required />
-        <label>Secenek B</label>
-        <input type="text" th:field="*{choiceB}" required />
-        <label>Secenek C</label>
-        <input type="text" th:field="*{choiceC}" required />
-        <label>Secenek D</label>
-        <input type="text" th:field="*{choiceD}" required />
-        <label>Dogru Secenek</label>
-        <select th:field="*{correctIndex}">
-            <option th:value="0">A</option>
-            <option th:value="1">B</option>
-            <option th:value="2">C</option>
-            <option th:value="3">D</option>
-        </select>
+        <div class="form-group">
+            <label>Soru Metni</label>
+            <textarea th:field="*{text}" rows="3" required placeholder="Soruyu buraya yazin..."></textarea>
+        </div>
+        <div class="form-group">
+            <label>Secenek A</label>
+            <input type="text" th:field="*{choiceA}" required />
+        </div>
+        <div class="form-group">
+            <label>Secenek B</label>
+            <input type="text" th:field="*{choiceB}" required />
+        </div>
+        <div class="form-group">
+            <label>Secenek C</label>
+            <input type="text" th:field="*{choiceC}" required />
+        </div>
+        <div class="form-group">
+            <label>Secenek D</label>
+            <input type="text" th:field="*{choiceD}" required />
+        </div>
+        <div class="form-group">
+            <label>Dogru Secenek</label>
+            <select th:field="*{correctIndex}">
+                <option th:value="0">A</option>
+                <option th:value="1">B</option>
+                <option th:value="2">C</option>
+                <option th:value="3">D</option>
+            </select>
+        </div>
         <button class="btn" type="submit">Kaydet</button>
     </form>
 </main>

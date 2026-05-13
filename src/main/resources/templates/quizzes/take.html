@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Quiz</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quiz - QuizApp</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
@@ -10,8 +11,8 @@
 <main class="container">
     <div class="quiz-header">
         <h1 th:text="${quiz.title}"></h1>
-        <div class="timer" th:attr="data-duration=${quiz.durationSeconds}">
-            Kalan Sure: <span id="timerValue"></span>
+        <div class="timer" id="timerBox" th:attr="data-duration=${quiz.durationSeconds}">
+            &#9201; <span id="timerValue"></span>
         </div>
     </div>
 
@@ -26,24 +27,27 @@
                 </label>
             </div>
         </div>
-        <button class="btn" type="submit">Bitir</button>
+        <div class="submit-area">
+            <button class="btn" type="submit">Quizi Bitir</button>
+        </div>
     </form>
 </main>
 
 <script>
 const timerEl = document.getElementById('timerValue');
-const timerBox = document.querySelector('.timer');
+const timerBox = document.getElementById('timerBox');
 const durationSeconds = parseInt(timerBox.dataset.duration, 10);
 let remaining = Number.isFinite(durationSeconds) ? durationSeconds : 0;
 const tick = () => {
-  const minutes = Math.floor(remaining / 60);
-  const seconds = remaining % 60;
-  timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
-  if (remaining <= 0) {
-    document.querySelector('form').submit();
-    return;
-  }
-  remaining -= 1;
+    const minutes = Math.floor(remaining / 60);
+    const seconds = remaining % 60;
+    timerEl.textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+    if (remaining <= 30) timerBox.classList.add('urgent');
+    if (remaining <= 0) {
+        document.querySelector('form').submit();
+        return;
+    }
+    remaining -= 1;
 };
 tick();
 setInterval(tick, 1000);

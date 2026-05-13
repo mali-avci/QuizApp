@@ -2,33 +2,41 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Liderlik</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Liderlik - QuizApp</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
 <div th:replace="fragments/navbar :: navbar"></div>
 <main class="container">
     <h1>Liderlik Tablosu</h1>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Kullanici</th>
-                <th>Quiz</th>
-                <th>Skor</th>
-                <th>Tarih</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="attempt : ${attempts}">
-                <td th:text="${attempt.user.username}"></td>
-                <td th:text="${attempt.quiz.title}"></td>
-                <td>
-                    <span th:text="${attempt.score}"></span>/<span th:text="${attempt.total}"></span>
-                </td>
-                <td th:text="${attempt.finishedAt}"></td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Kullanici</th>
+                    <th>Quiz</th>
+                    <th>Skor</th>
+                    <th>Tarih</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="attempt, iterStat : ${attempts}">
+                    <td class="rank-cell"
+                        th:classappend="${iterStat.index == 0} ? 'rank-1' : (${iterStat.index == 1} ? 'rank-2' : (${iterStat.index == 2} ? 'rank-3' : ''))"
+                        th:text="${iterStat.count}">
+                    </td>
+                    <td th:text="${attempt.user.username}"></td>
+                    <td th:text="${attempt.quiz.title}"></td>
+                    <td>
+                        <span th:text="${attempt.score}"></span>/<span th:text="${attempt.total}"></span>
+                    </td>
+                    <td th:text="${attempt.finishedAt}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
 </main>
 </body>
 </html>

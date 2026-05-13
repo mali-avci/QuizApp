@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Admin - Quizler</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
@@ -9,31 +10,35 @@
 <div th:replace="fragments/navbar :: navbar"></div>
 <main class="container">
     <div class="header-row">
-        <h1>Quiz Yönetimi</h1>
-        <a class="btn" th:href="@{/admin/quizzes/new}">Yeni Quiz</a>
+        <h1>Quiz Yonetimi</h1>
+        <a class="btn btn--sm" th:href="@{/admin/quizzes/new}">+ Yeni Quiz</a>
     </div>
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Baslik</th>
-                <th>Kategori</th>
-                <th>Sure</th>
-                <th>Islem</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="quiz : ${quizzes}">
-                <td th:text="${quiz.title}"></td>
-                <td th:text="${quiz.category}"></td>
-                <td th:text="${quiz.durationSeconds}"></td>
-                <td>
-                    <a th:href="@{/admin/quizzes/{id}/edit(id=${quiz.id})}">Duzenle</a> |
-                    <a th:href="@{/admin/quizzes/{id}/questions(id=${quiz.id})}">Sorular</a>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <a class="btn" th:href="@{/admin/results}">Kullanici Sonuclari</a>
+    <div class="table-wrapper">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Baslik</th>
+                    <th>Kategori</th>
+                    <th>Sure</th>
+                    <th>Islem</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="quiz : ${quizzes}">
+                    <td th:text="${quiz.title}"></td>
+                    <td><span class="pill pill--accent" th:text="${quiz.category}"></span></td>
+                    <td th:text="${quiz.durationSeconds} + ' sn'"></td>
+                    <td>
+                        <div class="admin-actions">
+                            <a class="link-btn" th:href="@{/admin/quizzes/{id}/edit(id=${quiz.id})}">Duzenle</a>
+                            <a class="link-btn" th:href="@{/admin/quizzes/{id}/questions(id=${quiz.id})}">Sorular</a>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <a class="btn btn--ghost btn--sm" th:href="@{/admin/results}">Kullanici Sonuclari</a>
 </main>
 </body>
 </html>

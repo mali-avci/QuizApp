@@ -2,7 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8" />
-    <title>Quizler</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Quizler - QuizApp</title>
     <link rel="stylesheet" th:href="@{/css/style.css}" />
 </head>
 <body>
@@ -12,9 +13,11 @@
     <div class="cards">
         <div class="card" th:each="quiz : ${quizzes}">
             <h2 th:text="${quiz.title}"></h2>
-            <p>Kategori: <span th:text="${quiz.category}"></span></p>
-            <p>Sure: <span th:text="${quiz.durationSeconds}"></span> sn</p>
-            <a class="btn" th:href="@{/quizzes/{id}(id=${quiz.id})}">Basla</a>
+            <div class="card-meta">
+                <span class="pill pill--accent" th:text="${quiz.category}"></span>
+                <span class="pill" th:text="${quiz.durationSeconds} + ' sn'"></span>
+            </div>
+            <a class="btn btn--sm" th:href="@{/quizzes/{id}(id=${quiz.id})}">Basla</a>
         </div>
     </div>
 </main>
